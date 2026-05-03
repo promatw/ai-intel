@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>全球封測最前線｜12 週執行點檢表</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #f6f7f9; color: #172033; padding: 2rem 1rem; overflow-x: hidden; }
+  .page { max-width: 920px; margin: 0 auto; }
+  .top-bar { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  h1 { font-size: 22px; line-height: 1.35; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { font-size: 13px; color: #667085; line-height: 1.6; }
+  .top-bar-right { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+  .save-status { font-size: 12px; color: #98a2b3; white-space: nowrap; }
+  .save-status.saved { color: #166534; }
+  .btn-clear { font-size: 12px; padding: 6px 14px; border-radius: 99px; border: 1px solid #f3b4b4; background: #fff5f5; color: #8a1f1f; cursor: pointer; font-family: inherit; white-space: nowrap; }
+  .btn-clear:hover { background: #fee2e2; }
+
+  .mission { background: #fff; border: 1px solid #d9e2ec; border-radius: 10px; padding: 14px 16px; margin-bottom: 1rem; }
+  .mission-title { font-size: 13px; color: #14532d; font-weight: 700; margin-bottom: 6px; }
+  .mission p { font-size: 13px; color: #344054; line-height: 1.7; }
+
+  .categories { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; margin-bottom: 1rem; }
+  .cat-chip { border-radius: 10px; padding: 9px 7px; font-size: 12px; font-weight: 700; text-align: center; cursor: pointer; border: 2px solid transparent; line-height: 1.35; user-select: none; }
+  .cat-chip.active { border-color: currentColor; }
+  .cat-chip[data-cat="source"] { background: #e0f2fe; color: #075985; }
+  .cat-chip[data-cat="website"] { background: #e0e7ff; color: #3730a3; }
+  .cat-chip[data-cat="newsletter"] { background: #dcfce7; color: #166534; }
+  .cat-chip[data-cat="knowledge"] { background: #fef3c7; color: #92400e; }
+  .cat-chip[data-cat="podcast"] { background: #fae8ff; color: #86198f; }
+  .cat-chip[data-cat="review"] { background: #fee2e2; color: #991b1b; }
+
+  .progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 1rem; }
+  .progress-bar-bg { flex: 1; height: 8px; background: #e5e7eb; border-radius: 99px; overflow: hidden; }
+  .progress-bar-fill { height: 100%; background: #2563eb; border-radius: 99px; transition: width 0.25s; }
+  .progress-label { font-size: 12px; color: #667085; white-space: nowrap; }
+
+  .filter-bar { display: flex; align-items: center; gap: 6px; margin-bottom: 1rem; flex-wrap: wrap; }
+  .filter-bar span { font-size: 13px; color: #667085; }
+  .filter-btn { font-size: 12px; padding: 5px 13px; border-radius: 99px; border: 1px solid #d0d5dd; background: #fff; cursor: pointer; color: #475467; font-family: inherit; }
+  .filter-btn.active, .filter-btn:hover { background: #e9eefb; color: #172033; }
+
+  .tasks { display: flex; flex-direction: column; gap: 12px; }
+  .task-card { background: #fff; border: 1px solid #d9e2ec; border-radius: 12px; padding: 15px 16px; box-shadow: 0 1px 2px rgba(16,24,40,0.03); }
+  .task-header { display: flex; align-items: flex-start; gap: 11px; }
+  .check-wrap { flex-shrink: 0; margin-top: 3px; }
+  input[type=checkbox] { cursor: pointer; accent-color: #2563eb; }
+  .check-wrap input[type=checkbox] { width: 17px; height: 17px; }
+  .task-body { flex: 1; min-width: 0; }
+  .task-top { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 5px; }
+  .task-title { font-size: 15px; font-weight: 750; color: #172033; }
+  .task-title.done { text-decoration: line-through; color: #98a2b3; }
+  .badge { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; white-space: nowrap; }
+  .badge[data-cat="source"] { background: #e0f2fe; color: #075985; }
+  .badge[data-cat="website"] { background: #e0e7ff; color: #3730a3; }
+  .badge[data-cat="newsletter"] { background: #dcfce7; color: #166534; }
+  .badge[data-cat="knowledge"] { background: #fef3c7; color: #92400e; }
+  .badge[data-cat="podcast"] { background: #fae8ff; color: #86198f; }
+  .badge[data-cat="review"] { background: #fee2e2; color: #991b1b; }
+  .urgency { font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 99px; }
+  .urgency.gate { background: #fee2e2; color: #991b1b; }
+  .urgency.build { background: #e0e7ff; color: #3730a3; }
+  .urgency.test { background: #fef3c7; color: #92400e; }
+  .urgency.scale { background: #dcfce7; color: #166534; }
+  .task-desc { font-size: 13px; color: #475467; line-height: 1.65; margin-bottom: 8px; }
+  .metric-box { font-size: 12px; color: #175cd3; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 6px 10px; margin: 7px 0; line-height: 1.55; }
+  .warning-box { font-size: 12px; color: #7c2d12; background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 6px 10px; margin: 7px 0; line-height: 1.55; }
+  .subtasks { margin-top: 9px; display: flex; flex-direction: column; gap: 6px; }
+  .subtask { display: flex; align-items: flex-start; gap: 8px; padding: 8px 10px; background: #f8fafc; border-radius: 8px; font-size: 13px; color: #344054; line-height: 1.55; }
+  .subtask input[type=checkbox] { width: 14px; height: 14px; flex-shrink: 0; margin-top: 3px; }
+  .note-row { margin-top: 10px; display: grid; grid-template-columns: auto 1fr; gap: 8px; align-items: start; padding: 9px 10px; background: #fbfcfe; border: 1px dashed #cbd5e1; border-radius: 8px; }
+  .note-row input[type=checkbox] { width: 15px; height: 15px; margin-top: 3px; }
+  .note-content { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+  .note-label { font-size: 12px; color: #667085; font-weight: 700; }
+  textarea { width: 100%; min-height: 44px; resize: vertical; border: 1px solid #d0d5dd; border-radius: 8px; padding: 8px 10px; font-family: inherit; font-size: 13px; line-height: 1.5; color: #172033; background: #fff; }
+  textarea:focus { outline: 2px solid #bfdbfe; border-color: #60a5fa; }
+  @media (max-width: 760px) {
+    body { padding: 1rem 0.65rem 1.5rem; }
+    .page { max-width: none; width: 100%; }
+    .top-bar { display: block; margin-bottom: 1rem; }
+    h1 { font-size: 20px; }
+    .subtitle { font-size: 12.5px; line-height: 1.5; margin-top: 4px; }
+    .top-bar-right { margin-top: 10px; justify-content: space-between; width: 100%; }
+    .save-status { font-size: 11.5px; }
+    .btn-clear { padding: 5px 10px; font-size: 11.5px; }
+    .mission { padding: 12px; border-radius: 9px; }
+    .mission p { font-size: 12.5px; line-height: 1.65; }
+    .categories { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cat-chip { padding: 8px 6px; font-size: 12px; border-radius: 9px; }
+    .progress-row { align-items: flex-start; flex-direction: column; gap: 7px; }
+    .progress-bar-bg { width: 100%; }
+    .filter-bar { gap: 6px; margin-bottom: 0.9rem; }
+    .filter-bar span { width: 100%; font-size: 12.5px; }
+    .filter-btn { flex: 1; min-width: 0; padding: 6px 8px; }
+    .tasks { gap: 10px; }
+    .task-card { padding: 12px; border-radius: 10px; }
+    .task-header { gap: 8px; }
+    .task-title { font-size: 14px; line-height: 1.45; }
+    .badge, .urgency { font-size: 10.5px; padding: 2px 7px; }
+    .task-desc { font-size: 12.5px; line-height: 1.6; }
+    .metric-box, .warning-box { font-size: 12px; padding: 6px 8px; }
+    .subtask { font-size: 12.5px; padding: 8px; }
+    .note-row { grid-template-columns: 1fr; gap: 6px; padding: 8px; }
+    .note-row > input[type=checkbox] { justify-self: start; }
+    textarea { font-size: 12.5px; min-height: 58px; }
+  }
+  @media (max-width: 360px) {
+    body { padding-left: 0.45rem; padding-right: 0.45rem; }
+    h1 { font-size: 18px; }
+    .categories { gap: 6px; }
+    .cat-chip { font-size: 11.5px; }
+    .task-card { padding: 10px; }
+    .task-header { gap: 7px; }
+    .task-top { gap: 5px; }
+    .task-title { width: 100%; }
+    .metric-box, .warning-box, .subtask { border-radius: 7px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+  <div class="top-bar">
+    <div>
+      <h1>全球封測最前線｜12 週執行點檢表</h1>
+      <p class="subtitle">每週投入 7 小時 · 先驗證來源、文章、電子報，再進 Podcast 與會員產品</p>
+    </div>
+    <div class="top-bar-right">
+      <span class="save-status" id="save-status">讀取中...</span>
+      <button class="btn-clear" onclick="clearAll()">清空所有資料</button>
+    </div>
+  </div>
+
+  <div class="mission">
+    <div class="mission-title">策略主軸</div>
+    <p>建立一個 AI 驅動的全球封測情報引擎：先用網站與電子報驗證一般投資者需求，再把高反應主題轉成 NotebookLM / YouTube Podcast，長期延伸為 LINE robot、來源查詢與 API 型會員產品。</p>
+  </div>
+
+  <div class="categories">
+    <div class="cat-chip active" data-cat="source" onclick="filterCat('source')">來源地圖</div>
+    <div class="cat-chip active" data-cat="website" onclick="filterCat('website')">網站文章</div>
+    <div class="cat-chip active" data-cat="newsletter" onclick="filterCat('newsletter')">電子報</div>
+    <div class="cat-chip active" data-cat="knowledge" onclick="filterCat('knowledge')">知識庫</div>
+    <div class="cat-chip active" data-cat="podcast" onclick="filterCat('podcast')">Podcast</div>
+    <div class="cat-chip active" data-cat="review" onclick="filterCat('review')">關卡點檢</div>
+  </div>
+
+  <div class="progress-row">
+    <div class="progress-bar-bg"><div class="progress-bar-fill" id="prog-fill" style="width:0%"></div></div>
+    <div class="progress-label" id="prog-label">0 / 0 週完成</div>
+  </div>
+
+  <div class="filter-bar">
+    <span>篩選：</span>
+    <button class="filter-btn active" data-status="all" onclick="filterStatus('all', this)">全部</button>
+    <button class="filter-btn" data-status="pending" onclick="filterStatus('pending', this)">待辦</button>
+    <button class="filter-btn" data-status="done" onclick="filterStatus('done', this)">已完成</button>
+  </div>
+
+  <div class="tasks" id="task-list"></div>
+</div>
+
+<script>
+const tasks = [
+  {
+    id: 'w01', cat: 'source', urgency: 'gate',
+    title: '第 1 週：日本與台灣材料設備來源手動試跑',
+    desc: '第一週不做全球大而全，也不啟動排程。先以日本 10 家、台灣 10 家材料與設備公司為核心，建立公司第一手資訊能力，確認 News / IR / R&D / Products 哪個入口最適合。',
+    metric: '通過條件：完成 20 家核心公司來源地圖；挑出第一批 12 個測試來源；整理 20 篇來源文章或產品頁；產出第一期週報候選主題，但不發布文章或電子報。',
+    warning: '所有網站文章、電子報草稿與 Podcast 腳本都要等使用者審查後才可產出或發布。公開草稿暫採半揭露：可寫來源名稱與來源類型，完整 URL 留在來源地圖與 Obsidian。',
+    subtasks: [
+      { id: 'w01s01', text: '以日本 10 家、台灣 10 家材料與設備公司為第一批核心來源，不先加入二手媒體或分析師報告。' },
+      { id: 'w01s02', text: '逐家公司檢查 News / IR / R&D / Products，標記最適合長期追蹤的入口與替代入口。' },
+      { id: 'w01s03', text: '挑出第一批 12 個測試來源，並保留 8 個備援觀察來源；記錄國家、公司、分類、URL、來源類型、抓取難度與付費牆。' },
+      { id: 'w01s04', text: '手動整理 20 篇來源文章或產品頁，記錄原文標題、URL、日期、公司、分類、中文摘要、供應鏈位置與適合用途。' },
+      { id: 'w01s05', text: '把來源地圖與 20 篇候選素材存入 ai-intel 文件與 Obsidian / SecondBrain，並讀回確認。' },
+      { id: 'w01s06', text: '整理第一期週報候選主題 2-3 個，只做選題與角度，不產出正式草稿。' }
+    ]
+  },
+  {
+    id: 'w02', cat: 'website', urgency: 'build',
+    title: '第 2 週：定稿文章模板與第一批選題',
+    desc: '把「給一般投資者看的封測情報」變成固定文章格式，避免文章變成單純翻譯或新聞搬運。',
+    metric: '通過條件：完成文章模板，並選出 8 篇正式文章候選；每篇都有來源、分類與投資人觀察點。',
+    warning: '如果文章看起來像翻譯稿，先暫停發布，回頭改成脈絡整理。',
+    subtasks: [
+      { id: 'w02s01', text: '定義文章欄位：發生什麼事、為什麼重要、影響哪段供應鏈、投資人追蹤問題、來源記錄。' },
+      { id: 'w02s02', text: '從第 1 週來源中挑 8 篇文章候選，四分類各 2 篇。' },
+      { id: 'w02s03', text: '為每篇候選寫 3-5 句選題理由。' },
+      { id: 'w02s04', text: '決定公開頁面是否顯示來源連結，或只顯示來源名稱與私有 URL 記錄。' }
+    ]
+  },
+  {
+    id: 'w03', cat: 'website', urgency: 'build',
+    title: '第 3 週：產出前 4 篇正式文章',
+    desc: '先做少量高品質文章，驗證語氣、分類、標題和投資人理解度。',
+    metric: '通過條件：完成 4 篇正式文章草稿，至少 2 篇可發布；每篇都保存完整來源記錄。',
+    warning: '不要追求每日更新。每週 7 小時條件下，品質與流程穩定比數量重要。',
+    subtasks: [
+      { id: 'w03s01', text: '先進封裝 1 篇、先進測試 1 篇、設備 1 篇、材料 1 篇。' },
+      { id: 'w03s02', text: '每篇用一般投資者聽得懂的語言改寫。' },
+      { id: 'w03s03', text: '標記是否適合電子報、Podcast、知識庫長期追蹤。' },
+      { id: 'w03s04', text: '由使用者審查是否發布，不做全自動公開。' }
+    ]
+  },
+  {
+    id: 'w04', cat: 'review', urgency: 'gate',
+    title: '第 4 週：第一階段關卡點檢',
+    desc: '判斷是否已經具備進入電子報試刊的最低條件。',
+    metric: '通過條件：來源地圖 50 個以上、正式文章 8 篇候選、至少 4 篇可發布、四分類都有內容。',
+    warning: '如果來源不足、文章像翻譯稿、或每週 7 小時無法維持，先不要啟動電子報。',
+    subtasks: [
+      { id: 'w04s01', text: '補齊來源地圖到至少 50 個來源。' },
+      { id: 'w04s02', text: '完成第一批 8 篇正式文章或可發布草稿。' },
+      { id: 'w04s03', text: '檢查四分類是否平衡，找出最有反應的 2 個分類。' },
+      { id: 'w04s04', text: '決定第 5 週是否啟動電子報試刊。' }
+    ]
+  },
+  {
+    id: 'w05', cat: 'newsletter', urgency: 'test',
+    title: '第 5 週：電子報試刊第 1 期',
+    desc: '電子報先作為讀者名單與需求驗證工具，不急著收費。',
+    metric: '通過條件：完成第 1 期電子報，格式固定，並建立訂閱名單收集方式。',
+    warning: '不要一開始做複雜訂閱系統。先確定內容有人想看。',
+    subtasks: [
+      { id: 'w05s01', text: '整理「本週全球封測 5 件事」格式。' },
+      { id: 'w05s02', text: '每則 100-180 字，包含投資人應觀察什麼。' },
+      { id: 'w05s03', text: '建立最小訂閱入口或候補名單。' },
+      { id: 'w05s04', text: '記錄開信率、點擊率、回覆與轉寄。' }
+    ]
+  },
+  {
+    id: 'w06', cat: 'newsletter', urgency: 'test',
+    title: '第 6 週：電子報第 2 期與標題測試',
+    desc: '開始觀察一般投資者對哪些主題有反應，尤其是 HBM、CoWoS、設備、材料供應鏈。',
+    metric: '通過條件：連續 2 週發出電子報；整理 3 個最高反應標題或主題。',
+    warning: '如果沒有人點擊，優先修標題與切入角度，不要先增加文章數量。',
+    subtasks: [
+      { id: 'w06s01', text: '發出第 2 期電子報。' },
+      { id: 'w06s02', text: '比較封裝、測試、設備、材料四類點擊表現。' },
+      { id: 'w06s03', text: '整理讀者可能在意的投資問題。' },
+      { id: 'w06s04', text: '把高反應主題標記為 podcast_candidate。' }
+    ]
+  },
+  {
+    id: 'w07', cat: 'knowledge', urgency: 'build',
+    title: '第 7 週：建立 Obsidian / SecondBrain 知識庫規則',
+    desc: '把來源、翻譯、摘要、判斷和文章之間的關係存下來，這是未來 LINE robot / API 的基礎。',
+    metric: '通過條件：至少 20 篇來源文章被保存成可查詢筆記，並有分類與來源 URL。',
+    warning: '知識庫不能只存文章全文，必須存來源、摘要、分類、引用段落與後續追蹤問題。',
+    subtasks: [
+      { id: 'w07s01', text: '建立 Obsidian 資料夾：來源文章、公司、技術、週報、Podcast 候選。' },
+      { id: 'w07s02', text: '設計來源筆記模板：標題、URL、日期、國家、分類、摘要、引用段落。' },
+      { id: 'w07s03', text: '累積 20 篇來源文章記錄。' },
+      { id: 'w07s04', text: '標記 high_value_for_paid_query 的內容。' }
+    ]
+  },
+  {
+    id: 'w08', cat: 'review', urgency: 'gate',
+    title: '第 8 週：電子報與知識庫關卡點檢',
+    desc: '確認是否能穩定產生文章、電子報與知識庫素材，否則不要進 Podcast。',
+    metric: '通過條件：至少 4 期電子報、16 篇以上正式文章或草稿、20 篇來源筆記、明確 2-3 個高反應主題。',
+    warning: '如果電子報開信率低於 25% 或幾乎無點擊，先調整定位與標題。',
+    subtasks: [
+      { id: 'w08s01', text: '整理前 4 期電子報數據。' },
+      { id: 'w08s02', text: '列出最有反應的 2-3 類主題。' },
+      { id: 'w08s03', text: '檢查知識庫是否能支撐 Podcast 腳本。' },
+      { id: 'w08s04', text: '決定是否進入 Podcast 腳本試作。' }
+    ]
+  },
+  {
+    id: 'w09', cat: 'podcast', urgency: 'test',
+    title: '第 9 週：Podcast 第 1 集腳本試作',
+    desc: '先做腳本，不急著上架。測試 NotebookLM 是否能生成像懂產業的人在講的內容。',
+    metric: '通過條件：完成 1 集 10-15 分鐘腳本與 2-3 頁輪播大綱。',
+    warning: '如果腳本像 AI 念稿，先不要錄製，回頭補知識庫素材與人類判斷。',
+    subtasks: [
+      { id: 'w09s01', text: '從高反應主題挑 1 題，例如 HBM、CoWoS、設備或材料。' },
+      { id: 'w09s02', text: '用 Obsidian 來源整理 NotebookLM 素材包。' },
+      { id: 'w09s03', text: '產出 10-15 分鐘 Podcast 腳本。' },
+      { id: 'w09s04', text: '設計 2-3 頁輪播投影片大綱。' }
+    ]
+  },
+  {
+    id: 'w10', cat: 'podcast', urgency: 'test',
+    title: '第 10 週：Podcast 試錄與內容回饋',
+    desc: '用低製作成本試錄，不追求完美影片，先驗證內容是否能聽。',
+    metric: '通過條件：完成 1 集內部試錄或半公開試播，收集 3-5 個回饋。',
+    warning: '不要投入太多剪輯與設計時間。這階段要驗證題目、口吻與節奏。',
+    subtasks: [
+      { id: 'w10s01', text: '錄製第 1 集測試版。' },
+      { id: 'w10s02', text: '確認資訊正確性與來源可追溯。' },
+      { id: 'w10s03', text: '找 3-5 位目標讀者或朋友聽完回饋。' },
+      { id: 'w10s04', text: '記錄是否適合公開上架。' }
+    ]
+  },
+  {
+    id: 'w11', cat: 'newsletter', urgency: 'scale',
+    title: '第 11 週：內容飛輪整理',
+    desc: '把來源、文章、電子報、知識庫、Podcast 候選串成固定流程。',
+    metric: '通過條件：建立一套手動可執行流程，未來才考慮半自動或排程。',
+    warning: '流程沒穩定前不要做全自動發布。自動化會放大錯誤。',
+    subtasks: [
+      { id: 'w11s01', text: '確認每篇來源文章進入知識庫的步驟。' },
+      { id: 'w11s02', text: '確認網站文章產出與審查步驟。' },
+      { id: 'w11s03', text: '確認電子報整理與寄送步驟。' },
+      { id: 'w11s04', text: '確認 Podcast 候選標記與腳本生成步驟。' }
+    ]
+  },
+  {
+    id: 'w12', cat: 'review', urgency: 'gate',
+    title: '第 12 週：90 天策略複盤與下一階段決策',
+    desc: '決定是否繼續加碼、調整定位、啟動 Podcast 公開試播，或先回頭修來源與電子報。',
+    metric: '通過條件：正式文章 24-36 篇、電子報 4-6 期、來源筆記 50 篇、訂閱者 100-500 人或明確成長訊號。',
+    warning: '如果沒有讀者回饋，不要硬推 YouTube 會員。先修內容和受眾。',
+    subtasks: [
+      { id: 'w12s01', text: '整理 12 週產出：文章數、電子報數、來源數、訂閱者、回覆、點擊。' },
+      { id: 'w12s02', text: '判斷最有潛力的 2 個主題線。' },
+      { id: 'w12s03', text: '決定第 13-24 週是否進入 Podcast 試播。' },
+      { id: 'w12s04', text: '列出不可行處與調整方案。' }
+    ]
+  }
+];
+
+const urgencyLabel = { gate: '關卡', build: '建立', test: '測試', scale: '放大' };
+const catNames = {
+  source: '來源地圖',
+  website: '網站文章',
+  newsletter: '電子報',
+  knowledge: '知識庫',
+  podcast: 'Podcast',
+  review: '關卡點檢'
+};
+const STORAGE_KEY = 'global_packaging_frontline_12w_state_v1';
+
+let catActiveMap = { source: true, website: true, newsletter: true, knowledge: true, podcast: true, review: true };
+let statusFilter = 'all';
+let doneMap = {};
+let subDoneMap = {};
+let noteDoneMap = {};
+let noteTextMap = {};
+let saveTimer = null;
+
+function escapeHtml(text) {
+  return String(text || '').replace(/[&<>"']/g, ch => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;'
+  }[ch]));
+}
+
+function setSavedStatus(text, saved) {
+  const el = document.getElementById('save-status');
+  el.textContent = text;
+  el.className = saved ? 'save-status saved' : 'save-status';
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ doneMap, subDoneMap, noteDoneMap, noteTextMap, catActiveMap, statusFilter }));
+    const now = new Date();
+    const ts = now.toLocaleString('zh-TW', { month:'numeric', day:'numeric', hour:'2-digit', minute:'2-digit' });
+    setSavedStatus('已自動儲存 ' + ts, true);
+  } catch(e) {
+    setSavedStatus('儲存失敗，請檢查瀏覽器設定', false);
+  }
+}
+
+function saveStateSoon() {
+  setSavedStatus('正在儲存...', false);
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(saveState, 350);
+}
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) { setSavedStatus('尚無儲存記錄', false); return; }
+    const s = JSON.parse(raw);
+    doneMap = s.doneMap || {};
+    subDoneMap = s.subDoneMap || {};
+    noteDoneMap = s.noteDoneMap || {};
+    noteTextMap = s.noteTextMap || {};
+    catActiveMap = s.catActiveMap || catActiveMap;
+    statusFilter = s.statusFilter || 'all';
+    Object.keys(catActiveMap).forEach(cat => {
+      const chip = document.querySelector(`.cat-chip[data-cat="${cat}"]`);
+      if (chip) chip.classList.toggle('active', catActiveMap[cat]);
+    });
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    const activeBtn = document.querySelector(`.filter-btn[data-status="${statusFilter}"]`);
+    if (activeBtn) activeBtn.classList.add('active');
+    setSavedStatus('已載入上次記錄', true);
+  } catch(e) {
+    setSavedStatus('讀取記錄失敗', false);
+  }
+}
+
+function clearAll() {
+  if (!confirm('確定要清空所有勾選與備註資料嗎？')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  doneMap = {}; subDoneMap = {}; noteDoneMap = {}; noteTextMap = {};
+  catActiveMap = { source: true, website: true, newsletter: true, knowledge: true, podcast: true, review: true };
+  statusFilter = 'all';
+  document.querySelectorAll('.cat-chip').forEach(c => c.classList.add('active'));
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('.filter-btn[data-status="all"]').classList.add('active');
+  setSavedStatus('資料已清空', false);
+  buildList();
+}
+
+function buildList() {
+  const list = document.getElementById('task-list');
+  list.innerHTML = '';
+  let total = 0, done = 0;
+  tasks.forEach(t => {
+    const isMainDone = !!doneMap[t.id];
+    if (statusFilter === 'done' && !isMainDone) return;
+    if (statusFilter === 'pending' && isMainDone) return;
+    if (!catActiveMap[t.cat]) return;
+    total++;
+    if (isMainDone) done++;
+    const card = document.createElement('div');
+    card.className = 'task-card';
+    const subHtml = t.subtasks.map(s =>
+      `<label class="subtask"><input type="checkbox" ${subDoneMap[s.id] ? 'checked' : ''} onchange="subDoneMap['${s.id}']=this.checked;saveState()"><span>${escapeHtml(s.text)}</span></label>`
+    ).join('');
+    card.innerHTML = `
+      <div class="task-header">
+        <div class="check-wrap"><input type="checkbox" ${isMainDone ? 'checked' : ''} onchange="doneMap['${t.id}']=this.checked;saveState();buildList()"></div>
+        <div class="task-body">
+          <div class="task-top">
+            <span class="task-title ${isMainDone ? 'done' : ''}">${escapeHtml(t.title)}</span>
+            <span class="badge" data-cat="${t.cat}">${catNames[t.cat]}</span>
+            <span class="urgency ${t.urgency}">${urgencyLabel[t.urgency]}</span>
+          </div>
+          <div class="task-desc">${escapeHtml(t.desc)}</div>
+          <div class="metric-box">${escapeHtml(t.metric)}</div>
+          <div class="warning-box">${escapeHtml(t.warning)}</div>
+          <div class="subtasks">${subHtml}</div>
+          <div class="note-row">
+            <input type="checkbox" ${noteDoneMap[t.id] ? 'checked' : ''} onchange="noteDoneMap['${t.id}']=this.checked;saveState()">
+            <div class="note-content">
+              <div class="note-label">本週備註 / 點檢提醒</div>
+              <textarea placeholder="在這裡寫下本週要注意的事、阻礙、調整決策或下次打開時要看的提醒..." oninput="noteTextMap['${t.id}']=this.value;saveStateSoon()">${escapeHtml(noteTextMap[t.id] || '')}</textarea>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    list.appendChild(card);
+  });
+  const fill = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('prog-fill').style.width = fill + '%';
+  document.getElementById('prog-label').textContent = `${done} / ${total} 週完成`;
+}
+
+function filterCat(cat) {
+  catActiveMap[cat] = !catActiveMap[cat];
+  document.querySelector(`.cat-chip[data-cat="${cat}"]`).classList.toggle('active', catActiveMap[cat]);
+  saveState();
+  buildList();
+}
+
+function filterStatus(status, btn) {
+  statusFilter = status;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  saveState();
+  buildList();
+}
+
+loadState();
+buildList();
+</script>
+</body>
+</html>

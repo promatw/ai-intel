@@ -1,5 +1,7 @@
 {
   "description": "AI / CoWoS 已發布文章 URL 資料庫",
-  "last_updated": "2026-05-02",
-  "urls": []
+  "last_updated": "2026-05-03",
+  "urls": [
+    "https://promatw.github.io/ai-intel/posts/2026-05-03-equipment-dicing-grinding-dispensing-thermal/"
+  ]
 }
