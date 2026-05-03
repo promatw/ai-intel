@@ -1,50 +1,87 @@
 baseURL = "https://promatw.github.io/ai-intel/"
-languageCode = "zh-tw"
-title = "AI / CoWoS 情報"
-timeZone = "Asia/Taipei"
+title = "全球封測最前線"
+copyright = "版權所有 © 2026 全球封測最前線"
 defaultContentLanguage = "zh-tw"
-enableRobotsTXT = true
+hasCJKLanguage = true
 
-[pagination]
-  pagerSize = 10
+pagination.pagerSize = 10
+enableRobotsTXT = true
+buildDrafts = false
+buildFuture = false
+buildExpired = false
+
+[minify]
+  disableXML = true
+  minifyOutput = false
+
+[languages.zh-tw]
+  languageName = "繁體中文"
+  weight = 1
 
 [params]
   env = "production"
-  description = "AI infrastructure, CoWoS, advanced packaging and semiconductor supply-chain intelligence in Traditional Chinese."
-  author = "promatw"
-  defaultTheme = "auto"
+  description = "全球先進封裝、先進測試、半導體設備與材料情報摘要。"
+  author = "全球封測最前線"
+  defaultTheme = "light"
+  disableThemeToggle = true
+  mainSections = ["posts"]
+
+[params.label]
+  text = "全球封測最前線"
   ShowReadingTime = true
   ShowShareButtons = false
   ShowPostNavLinks = true
   ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
-  ShowToc = true
-  TocOpen = false
+  ShowCodeCopyButtons = false
+  ShowRssButtonInSectionTermList = true
+  ShowToc = false
+  comments = false
 
-[params.homeInfoParams]
-  Title = "AI / CoWoS 情報"
-  Content = "追蹤 AI 算力基礎設施、CoWoS 先進封裝、半導體供應鏈與模型實驗室動態。"
+[[menu.main]]
+  identifier = "home"
+  name = "首頁"
+  url = "/"
+  weight = 10
 
-[[params.socialIcons]]
-  name = "github"
-  url = "https://github.com/promatw/ai-intel"
+[[menu.main]]
+  identifier = "advanced-packaging"
+  name = "先進封裝"
+  url = "/categories/advanced-packaging/"
+  weight = 20
 
-[menu]
-  [[menu.main]]
-    identifier = "posts"
-    name = "文章"
-    url = "/posts/"
-    weight = 10
-  [[menu.main]]
-    identifier = "categories"
-    name = "分類"
-    url = "/categories/"
-    weight = 20
-  [[menu.main]]
-    identifier = "tags"
-    name = "標籤"
-    url = "/tags/"
-    weight = 30
+[[menu.main]]
+  identifier = "advanced-testing"
+  name = "先進測試"
+  url = "/categories/advanced-testing/"
+  weight = 30
+
+[[menu.main]]
+  identifier = "equipment"
+  name = "設備"
+  url = "/categories/equipment/"
+  weight = 40
+
+[[menu.main]]
+  identifier = "materials"
+  name = "材料"
+  url = "/categories/materials/"
+  weight = 50
+
+[[menu.main]]
+  identifier = "about-platform"
+  name = "關於全球封測最前線"
+  url = "/about/"
+  weight = 60
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
 
 [module]
   [[module.imports]]
