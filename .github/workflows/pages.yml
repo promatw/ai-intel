@@ -37,7 +37,7 @@ jobs:
       - name: Fetch Hugo modules
         run: hugo mod get -u
       - name: Build
-        run: hugo --minify --baseURL "${{ steps.pages.outputs.base_url }}/"
+        run: hugo --baseURL "https://promatw.github.io/ai-intel/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v4
         with:
