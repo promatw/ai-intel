@@ -1,4 +1,4 @@
-﻿# AI / CoWoS 情報
+# AI / CoWoS 情報
 
 GitHub Pages / Hugo 專案，用於發布 AI infrastructure、CoWoS、先進封裝、半導體供應鏈與模型實驗室情報。
 

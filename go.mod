@@ -1,3 +1,3 @@
-﻿module github.com/promatw/ai-intel
+module github.com/promatw/ai-intel
 
 go 1.22

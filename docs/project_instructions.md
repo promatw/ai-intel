@@ -1,4 +1,4 @@
-﻿# AI / CoWoS 情報網站 Project Instructions
+# AI / CoWoS 情報網站 Project Instructions
 
 ## 任務背景
 

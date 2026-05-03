@@ -1,4 +1,4 @@
-﻿# AI / CoWoS 情報｜月報 Remote Schedule Task v1
+# AI / CoWoS 情報｜月報 Remote Schedule Task v1
 
 ## 版本記錄
 

@@ -1,4 +1,4 @@
-﻿+++
++++
 title = "AI / CoWoS 情報網站啟動"
 date = "2026-05-02T00:00:00+08:00"
 slug = "2026-05-02-ai-intel-launch"

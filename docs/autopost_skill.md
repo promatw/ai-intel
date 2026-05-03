@@ -1,4 +1,4 @@
-﻿---
+---
 name: autopost-github
 description: 自動發布 Remote Schedule Task 的操作規則。當用戶要求產生、改寫、或除錯任何自動發布類 Remote Task（週報、月報、或其他定期發布任務）時，必須先讀取此 Skill，再開始任何產出。觸發關鍵詞：「產生週報」「產生月報」「寫一個新的自動發布任務」「把日報改成週報」「新增一個 Remote Task」「改寫 Remote Task」。
 ---
