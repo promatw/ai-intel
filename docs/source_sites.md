@@ -39,6 +39,43 @@
 | Semiconductor Digest | https://www.semiconductor-digest.com/ | 先進封裝、設備、材料 | 技術媒體 | 封裝、製程、檢測與材料新聞 |
 | Yole Group | https://www.yolegroup.com/ | 先進封裝、設備、材料、市場訊號 | 報告摘要與市場框架 | 多為報告導流；可整理公開摘要，不搬運付費內容 |
 
+## 台日公司第一手來源 v2
+
+建立日期：2026-05-04  
+完整主表：`docs/company_source_map_v2_2026-05-04.md`
+
+這一層用於第 2/3 週擴充 50-100 家公司來源池。它不是自動排程白名單，而是「公司官網、News、IR、R&D、Products」的第一手來源候選池。正式文章與電子報優先從這裡挑來源，再由使用者審查後發布。
+
+| 來源 | URL | 主要分類 | 使用方式 | 備註 |
+|---|---|---|---|---|
+| GPM 均豪精密 | https://www.gpmcorp.com.tw/ | 設備 | Products / News | 半導體、AOI、研磨、貼合、G2C+。 |
+| C SUN 志聖工業 | https://www.csun.com.tw/ | 設備 | Products / News / IR | 半導體製程設備、真空壓膜、烘烤、光熱製程。 |
+| 群翊工業 GP-Line | https://gp-line.com/ | 設備 | Products / News | 修正 Gemini 原 `shintech.com.tw`；此站明確標示先進封裝、FOPLP、TGV。 |
+| Eternal 長興材料 | https://www.eternal-group.com/ | 材料 | Products / News / IR | 電子材料、封裝樹脂、光阻、材料應用。 |
+| Shiny Chemical 勝一化工 | https://www.shinychem.com.tw/ | 材料 | Products / News / IR | 電子級溶劑、清洗液、剝離液；新聞有台積電供應商獎。 |
+| Kinsus 景碩科技 | https://www.kinsus.com.tw/ | 材料 | Product / Investors | SiP、PBGA、FCCSP、CSP、FCBGA。 |
+| Daxin 達興材料 | https://www.daxinmat.com/ | 材料 | Product / Technology / IR | 半導體材料、TBDB、PI。 |
+| San Fu 三福化工 | https://www.sfchem.com.tw/ | 材料 | Products / IR | 顯影液、蝕刻液、剝離劑、研磨液代工。 |
+| Everlight Chemical 永光化學 | https://www.ecic.com/ | 材料 | Products / News | PSPI、光阻、電子化學材料，需再找深頁。 |
+| Tokyo Electron TEL | https://www.tel.com/ | 設備 | News / Products | 塗佈、開發、蝕刻、prober / bonding 相關設備。 |
+| ULVAC | https://www.ulvac.co.jp/ | 設備 | News / Products / R&D | 真空、濺鍍、RDL、半導體製造裝置。 |
+| TOWA | https://www.towajapan.co.jp/ | 設備 | Products / IR | molding、compression molding、singulation。 |
+| JSR Corporation | https://www.jsr.co.jp/ | 材料 | Products / News / IR | photoresist、thick film resist、封裝用材料，需再找深頁。 |
+
+待人工或備援確認：
+
+| 來源 | URL | 狀態 | 備註 |
+|---|---|---|---|
+| GPTC 弘塑科技 | https://www.gptc.com.tw/# | canonical 已採用 | 使用者已確認；Gemini 給的 `https://www.grand-process.com/` 不採用，僅保留待查。 |
+| Unimicron 欣興電子 | https://www.unimicron.com/ | 官網正確，抓取需備援 | 今天自動抓取遇到 502。 |
+| Nanya PCB 南電 | https://www.nanyapcb.com.tw/ | 官網正確，抓取需備援 | 今天自動抓取內容空。 |
+| Chemleader 化學領航 | http://www.chemleader.com.tw/ | 待驗證 | 濕製程化學品候選。 |
+| CWTC 長華科技 | https://www.cwtg.com.tw/ | 待驗證 | 導線架 / QFN / 封裝支撐。 |
+| Eternal Material 國精化學 | https://www.eternal-material.com/ | 待驗證 | UV 固化樹脂與電子化學品。 |
+| Topco 崇越科技 | https://www.topco-global.com/ | 待驗證 | 半導體材料代理、散熱材料、研磨液。 |
+| Niching 利機企業 | https://www.niching.com.tw/ | 待驗證 | CUF、銀膠、封裝工具。 |
+| Crustal 晶化科技 | https://www.crustal.com.tw/ | 待驗證 | ABF 增層膜候選。 |
+
 ## 先進封裝來源
 
 | 來源 | URL | 追蹤重點 | 搜尋備援 |
@@ -128,3 +165,16 @@
 | 是否適合全文翻譯公開 | 預設不公開全文，只做摘要與引用 |
 | 是否適合 NotebookLM | 長文、報告、技術白皮書優先 |
 | 是否適合電子報 | 高訊號、跨分類、有明確產業意義者優先 |
+## Wet process international equipment sources - pending deep validation (2026-05-07)
+
+Source: Expert photo table from 2026-05-07 wet process review. These are first-pass source targets for the next round; deep-page crawl suitability has not been verified yet.
+
+| Company | URL | Category | Source type to test | Topic fit | Validation status |
+|---|---|---|---|---|---|
+| ACM Research | https://www.acmr.com/ | Equipment | Products / News / IR | Single-wafer wet clean, megasonic clean, advanced packaging flux clean | Pending deep-page validation |
+| SCREEN Semiconductor Solutions | https://www.screen.co.jp/s/s | Equipment | Products / News / Technology | Wet cleaning equipment, single-wafer clean, repeatable clean recipes | Pending deep-page validation |
+| Tokyo Electron | https://www.tel.com/ | Equipment | Products / News / Technology | Process integration, clean / etch / deposition adjacency, advanced packaging equipment | Pending deep-page validation |
+| Pactech | https://www.pactech.com/ | Equipment | Products / News | Modular wet bench, pilot-line wet process, flux handling | Pending deep-page validation |
+| SCHMID Group | https://schmid-group.com/ | Equipment | Products / News | Panel-level wet process, RDL / embedded trace / panel equipment | Pending deep-page validation |
+
+

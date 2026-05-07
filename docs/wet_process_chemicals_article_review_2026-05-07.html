@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>審稿版｜先進封裝的濕製程與化學藥液</title>
+  <style>
+    :root {
+      --ink: #172033;
+      --muted: #5f6b7a;
+      --line: #d9e2ec;
+      --blue: #175cd3;
+      --soft-blue: #eff6ff;
+      --bg: #f6f8fb;
+      --card: #ffffff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      color: var(--ink);
+      background: var(--bg);
+      line-height: 1.78;
+    }
+    .page {
+      max-width: 940px;
+      margin: 0 auto;
+      padding: 28px 18px 48px;
+    }
+    header {
+      padding: 22px 0 18px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 18px;
+    }
+    .eyebrow {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 760;
+      margin-bottom: 8px;
+    }
+    h1 {
+      font-size: 31px;
+      line-height: 1.35;
+      margin: 0 0 10px;
+      font-weight: 780;
+      letter-spacing: 0;
+    }
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+    }
+    .notice {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: #7c2d12;
+      font-size: 14px;
+      margin: 16px 0;
+    }
+    article {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+    }
+    h2 {
+      font-size: 22px;
+      line-height: 1.4;
+      margin: 26px 0 10px;
+    }
+    h2:first-child { margin-top: 0; }
+    h3 {
+      font-size: 17px;
+      margin: 18px 0 8px;
+    }
+    p { margin: 0 0 13px; }
+    .lead {
+      font-size: 17px;
+      color: #27364a;
+    }
+    figure {
+      margin: 18px 0;
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    figcaption {
+      padding: 10px 12px 12px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+    .callout {
+      border-left: 4px solid var(--blue);
+      background: #f8fbff;
+      padding: 12px 14px;
+      border-radius: 6px;
+      margin: 16px 0;
+    }
+    .simple-list {
+      margin: 8px 0 14px 22px;
+      padding: 0;
+    }
+    .simple-list li { margin: 5px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    th, td {
+      border: 1px solid var(--line);
+      padding: 8px 9px;
+      vertical-align: top;
+      text-align: left;
+    }
+    th {
+      background: var(--soft-blue);
+      color: #18417f;
+      font-weight: 720;
+    }
+    a { color: var(--blue); word-break: break-all; }
+    footer {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 16px;
+    }
+    @media (max-width: 760px) {
+      .page { padding: 18px 12px 32px; }
+      article { padding: 16px; }
+      h1 { font-size: 24px; }
+      h2 { font-size: 20px; }
+      table { font-size: 12px; }
+      th, td { padding: 7px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header>
+      <div class="eyebrow">全球封測最前線｜第二篇文章審稿版</div>
+      <h1>先進封裝的濕製程與化學藥液：不只是把晶圓洗乾淨</h1>
+      <p class="subtitle">版本日期：2026-05-07｜用途：本機審稿，不是正式發布頁</p>
+    </header>
+
+    <div class="notice">
+      本文是資訊整理與產業知識分享，不構成任何投資建議。
+    </div>
+
+    <article>
+      <p class="lead">先進封裝常被放在 CoWoS、FOPLP、HBM、RDL 這些關鍵字底下討論，但在實際製程裡，有一群不太顯眼的環節會反覆出現：清洗、蝕刻、去光阻、去殘膠、去助焊劑、去氧化層。這些步驟多半和濕製程設備與化學藥液有關。</p>
+
+      <p>如果用一句話說，濕製程不是單純「洗晶圓」，而是在每個關鍵步驟之間，把不該留下的東西移除，同時不能傷到該留下的結構。這也是為什麼先進封裝越複雜，濕製程越像是一套風險管理系統。</p>
+
+      <figure>
+        <img src="../static/images/posts/wet-process-equipment.png" alt="濕製程設備示意圖">
+        <figcaption>濕製程設備可以粗略想成兩類：一類是單片晶圓或單片面板處理，重視精準控制；另一類是批次式處理，重視產能與穩定度。真正困難的地方，不只在設備會不會洗，而是能不能搭配材料、配方與製程節奏，穩定做出可量產的結果。</figcaption>
+      </figure>
+
+      <h2>濕製程在先進封裝中做什麼？</h2>
+
+      <p>傳統半導體新聞裡，濕製程常被簡化成清洗或蝕刻。這樣說不算錯，但放到先進封裝就太簡化。專家討論中把 CoWoS 類型的濕製程拆成多個階段：pre-clean、TSV / RDL clean、micro-bump clean、pre-bond clean、flux clean、post / rework clean。每一段看起來都在「清洗」，但目的不一樣。</p>
+
+      <ul class="simple-list">
+        <li><strong>Pre-clean：</strong>先把有機物、微粒或空氣吸附物去掉，讓後段製程有乾淨表面。</li>
+        <li><strong>TSV / RDL clean：</strong>處理銅種子層、聚合物殘留、介電材料殘留，影響後續線路與接觸品質。</li>
+        <li><strong>Micro-bump clean：</strong>處理微凸塊或 bump 表面的氧化與殘留，和接合可靠度有關。</li>
+        <li><strong>Pre-bond clean：</strong>在鍵合前處理氧化層、微粒與表面活化，對 hybrid bonding 尤其重要。</li>
+        <li><strong>Flux clean：</strong>移除助焊劑殘留，避免 underfill 出現空洞或長期可靠度問題。</li>
+        <li><strong>Post / rework clean：</strong>在返工或後段清洗中把殘膠與污染控制在可交付狀態。</li>
+      </ul>
+
+      <p>一般投資人不需要記住每個英文名詞，但可以記住一個概念：濕製程的價值不在於「用水或藥水清洗」而已，而在於它決定哪些殘留能不能被移除、哪些表面能不能維持穩定、哪些風險能不能在量產前被控制住。</p>
+
+      <h2>為什麼 CoWoS、InFO、FOPLP 的濕製程要求不同？</h2>
+
+      <p>把 CoWoS、InFO、FOPLP 分開對理解上很有幫助，因為不同封裝架構放大的是不同風險。</p>
+
+      <p>CoWoS 比較接近高階晶片與中介層的整合，會碰到 TSV、RDL、銅種子層、pre-bond oxide removal 等問題。這些步驟和前段製程很接近，對選擇性、表面控制、大面積均勻性要求高。</p>
+
+      <p>InFO 則更強調封裝材料比例、殘膠、粒子移除與表面能控制。當 PI、EMC 等有機材料比例提高，清洗不再只是金屬或氧化層問題，也會牽涉不同材料對化學品的耐受度。</p>
+
+      <p>FOPLP 的挑戰是尺寸放大。面板變大後，warpage、流場均勻性、液體滲透不足、清洗死角、IPA drying 等問題會被放大。也就是說，過去在晶圓尺寸上可行的 recipe，不一定能直接放大到 panel-level 製程。</p>
+
+      <div class="callout">
+        <strong>簡化理解：</strong>CoWoS 重視高精度表面控制，InFO 重視材料與殘留控制，FOPLP 重視大尺寸面板上的均勻性與量產穩定度。
+      </div>
+
+      <h2>設備和化學藥液為什麼要一起看？</h2>
+
+      <p>弘塑是濕製程設備商，添鴻科技則是弘塑旗下化學品材料商，這個組合剛好可以說明：濕製程不是買一台設備就結束，而是設備、藥水、參數和客戶製程一起調整。</p>
+
+      <p>例如同樣是清洗，設備端要控制旋轉、噴灑、浸泡、溫度、流場、megasonic 能量、乾燥方式；化學品端則要處理選擇性、溶解力、殘留、金屬離子、材料相容性。兩邊任何一邊失控，都可能導致表面不乾淨、殘留太多、微結構受損，或後續 bonding / underfill 出問題。</p>
+
+      <figure>
+        <img src="../static/images/posts/wet-process-chemicals.png" alt="濕製程化學藥液示意圖">
+        <figcaption>這張圖用同一個封裝結構搭配不同液流，表達不同化學藥液在同一條製程鏈中扮演不同功能。它不是實際設備配置圖，而是科普意象：蝕刻液、去光阻液、清洗液、remover 的任務不同，但都在降低後段製程風險。</figcaption>
+      </figure>
+
+      <h2>六家公司分別站在哪裡？</h2>
+
+      <p>這篇文章不是要把六家公司寫成同一種公司，而是把它們放在同一條濕製程鏈上看。</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>公司</th>
+            <th>在這條鏈上的角色</th>
+            <th>一般讀者可以怎麼理解</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>弘塑</td>
+            <td>濕製程設備</td>
+            <td>像是負責「怎麼洗、怎麼蝕刻、怎麼去除殘留」的設備平台，重點在設備、藥水與 recipe 整合。</td>
+          </tr>
+          <tr>
+            <td>辛耘</td>
+            <td>晶圓與面板級濕製程設備</td>
+            <td>可放在 panel-level packaging、FOPLP、FoCoS 等放大後的濕製程需求中理解。</td>
+          </tr>
+          <tr>
+            <td>添鴻科技</td>
+            <td>蝕刻液、去光阻液、清洗液</td>
+            <td>代表弘塑體系中的化學品端，說明設備和藥液需要一起解決製程問題。</td>
+          </tr>
+          <tr>
+            <td>勝一</td>
+            <td>電子級溶劑</td>
+            <td>提供濕製程化學品常用的高純度溶劑基礎，支撐清洗、顯影、剝離等配方。</td>
+          </tr>
+          <tr>
+            <td>三福</td>
+            <td>精密化學品</td>
+            <td>可從顯影液、蝕刻液、光阻剝離劑、洗邊劑、研磨液代工等方向理解。</td>
+          </tr>
+          <tr>
+            <td>達興</td>
+            <td>temporary bonding / de-bonding 與 remover</td>
+            <td>和薄晶圓、臨時鍵合、RDL 材料、高純度特殊化學品有關，不宜只看成一般清洗液公司。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>這條供應鏈真正的風險在哪？</h2>
+
+      <p>先進封裝的濕製程風險大致分成三層。</p>
+
+      <p>第一層是表面能不能準備好。Pre-clean、TSV / RDL clean、micro-bump clean 如果沒做好，後續線路、凸塊或接合表面就可能出問題。</p>
+
+      <p>第二層是能不能穩定放大。FOPLP 或大尺寸 panel 不是把晶圓製程放大就好，因為尺寸一變，流場、乾燥、面板翹曲、清洗死角都可能變成新問題。</p>
+
+      <p>第三層是能不能長期可靠。Flux clean、post / rework clean、underfill 之前的殘留控制，都會影響封裝可靠度。這些問題不一定馬上反映在單一良率數字上，但可能影響後續壽命、返工與客戶驗證。</p>
+
+      <h2>從新聞報導看，為什麼市場開始注意濕製程？</h2>
+
+      <p>從產業脈絡來看，濕製程可以理解為半導體中的清洗與濕式蝕刻。它不是單純把表面洗乾淨，而是用化學反應、沖洗、乾燥與設備控制，把污染物、氧化層、殘膠或不需要的金屬層移除，讓後續製程能穩定接上。</p>
+
+      <p>這類新聞對一般讀者的價值，不在於精準解釋每一段 recipe，而是提醒大家：AI 與先進封裝拉動的不只是晶片設計或封裝產能，也會擴散到周邊製程設備與材料。濕製程正是其中一條不容易被看見、但反覆出現在製程中的鏈。</p>
+
+      <h2>本篇整理</h2>
+
+      <p>濕製程與化學藥液不是一個單點題目，而是一組連在一起的能力：設備要能穩定控制清洗、蝕刻、去除與乾燥；化學品要能在不傷害關鍵結構的前提下，移除特定殘留；客戶端還要把這些能力變成可量產的 recipe。</p>
+
+      <p>從這個角度看，弘塑、辛耘、添鴻科技、勝一、三福與達興放在同一篇文章中是合理的，但它們代表的是不同位置：有人做設備平台，有人做化學品，有人做溶劑，有人做 temporary bonding / remover。未來追蹤這條鏈，不應只看單一公司新聞，而要看先進封裝往 2.5D/3D、panel-level、RDL、hybrid bonding 前進時，哪一段清洗與去除風險被放大。</p>
+
+      <h2>代表來源</h2>
+      <ul class="simple-list">
+        <li>弘塑：<a href="https://www.gptc.com.tw/product-detail/UFO-300C-Series/">UFO-300C Series</a></li>
+        <li>辛耘：<a href="https://www.scientech.com.tw/zh-hant/Products/Scientech/WSEPanel">WSE Panel</a></li>
+        <li>添鴻科技：<a href="https://en.chemleader.com.tw/autopage_detail/6/cu-etchant">Cu Etchant</a></li>
+        <li>勝一：<a href="https://www.shinychem.com.tw/index.php?id=2&lang=cht&option=product&task=showlist">半導體應用產品頁</a></li>
+        <li>三福：<a href="https://www.sfchem.com.tw/">官方網站</a></li>
+        <li>達興：<a href="https://www.daxinmat.com/?c=311&lang=en-US&sn=844">Semiconductor Materials</a></li>
+      </ul>
+
+      <footer>
+        審稿註記：正式上架前，建議再確認標題、圖片註解與六家公司名稱呈現方式。華視新聞逐字稿不列入公開代表來源。
+      </footer>
+    </article>
+  </main>
+</body>
+</html>
