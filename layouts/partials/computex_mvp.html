@@ -1,0 +1,41 @@
+{{- $expo02 := site.GetPage "/posts/2026-05-14-expo-advanced-testing-semicon-taiwan" -}}
+{{- $expo01 := site.GetPage "/posts/2026-05-14-expo-advanced-packaging-semicon-taiwan" -}}
+<section class="ai-mvp" aria-labelledby="computex-mvp-title">
+  <div class="ai-mvp__eyebrow">COMPUTEX 2026 · MVP 觀察系列</div>
+  <div class="ai-mvp__intro">
+    <h2 id="computex-mvp-title">AI 伺服器背後的台灣封測供應鏈</h2>
+    <p>從 SEMICON 到 COMPUTEX，整理先進測試、先進封裝與 AI 伺服器需求端之間的供應鏈線索。文章以公開展場資訊與廠商官方資料為基礎，不誇大、不預測個股。</p>
+  </div>
+
+  <div class="ai-mvp__cards">
+    <article class="ai-mvp-card">
+      <span class="ai-status ai-status--live">已發布</span>
+      <p class="ai-mvp-card__series">expo-02 · SEMICON Taiwan 2026 測試專區</p>
+      <h3>{{ with $expo02 }}{{ .Title }}{{ else }}AI 晶片測試的四條防線{{ end }}</h3>
+      <p>從測試介面、ATE 平台、第三方可靠度服務到 handler 自動化，整理 AI 晶片測試供應鏈的四條防線。</p>
+      {{- with $expo02 }}
+      <a class="ai-mvp-card__link" href="{{ .RelPermalink }}">閱讀全文 →</a>
+      {{- end }}
+    </article>
+
+    <article class="ai-mvp-card">
+      {{- if $expo01 }}<span class="ai-status ai-status--live">已發布</span>{{ else }}<span class="ai-status ai-status--pending">整理中</span>{{ end }}
+      <p class="ai-mvp-card__series">expo-01 · SEMICON Taiwan 2026 封裝展區</p>
+      <h3>{{ with $expo01 }}{{ .Title }}{{ else }}AI 伺服器帶動封裝供應鏈分化{{ end }}</h3>
+      <p>從 3DIC、FOPLP、玻璃載板與矽光子切入，觀察先進封裝設備與材料供應鏈如何重新分工。</p>
+      {{- with $expo01 }}
+      <a class="ai-mvp-card__link" href="{{ .RelPermalink }}">閱讀全文 →</a>
+      {{- else }}
+      <span class="ai-mvp-card__disabled">候選文章整理中</span>
+      {{- end }}
+    </article>
+  </div>
+
+  <div class="ai-mvp__footer">
+    <div>
+      <strong>COMPUTEX 展期觀察持續更新</strong>
+      <p>掃描 QR 可先閱讀已發布文章；電子報功能完成後，將優先通知先進封裝與測試供應鏈後續更新。</p>
+    </div>
+    <a class="ai-mvp__qr-link" href="{{ "computex-mvp-qr-card/" | relURL }}">查看 QR 小卡 →</a>
+  </div>
+</section>

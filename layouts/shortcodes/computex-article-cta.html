@@ -1,0 +1,12 @@
+{{- $url := .Get "url" -}}
+{{- $title := .Get "title" | default "COMPUTEX MVP 觀察系列" -}}
+{{- $desc := .Get "desc" | default "從 SEMICON 到 COMPUTEX，持續整理 AI 伺服器背後的台灣封測供應鏈。" -}}
+<aside class="ai-article-cta" aria-label="COMPUTEX MVP 延伸閱讀">
+  <p class="ai-article-cta__eyebrow">{{ .Get "eyebrow" | default "COMPUTEX 2026 · 延伸閱讀" }}</p>
+  <h2>{{ $title }}</h2>
+  <p>{{ $desc }}</p>
+  <div class="ai-article-cta__actions">
+    {{- with $url }}<a class="ai-article-cta__primary" href="{{ . | relURL }}">閱讀延伸文章</a>{{ end -}}
+    <a class="ai-article-cta__secondary" href="{{ "computex-mvp-qr-card/" | relURL }}">QR 小卡</a>
+  </div>
+</aside>

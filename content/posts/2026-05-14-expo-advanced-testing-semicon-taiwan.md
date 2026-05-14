@@ -69,3 +69,6 @@ source_disclosure: "one_representative_first_party_url_per_company"
   <li>久元電子：<a href="https://www.ytec.com.tw/en">官方網站</a></li>
 </ul>
 
+{{< computex-newsletter-inline title="先進封裝篇與 COMPUTEX 展期觀察持續更新" desc="全球封測最前線將持續整理 AI 伺服器背後的封裝與測試供應鏈。電子報功能完成後，可第一時間收到後續文章。" >}}
+
+{{< computex-article-cta eyebrow="COMPUTEX 2026 · 下一篇觀察" title="AI 伺服器帶動封裝供應鏈分化" desc="從 3DIC、FOPLP、玻璃載板與矽光子切入，觀察 SEMICON Taiwan 2026 先進封裝設備與材料供應鏈。" url="/posts/2026-05-14-expo-advanced-packaging-semicon-taiwan/" >}}

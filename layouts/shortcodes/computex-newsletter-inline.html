@@ -1,0 +1,8 @@
+<aside class="ai-newsletter-inline" aria-label="訂閱全球封測最前線電子報">
+  <div>
+    <p class="ai-newsletter-inline__eyebrow">訂閱電子報</p>
+    <strong>{{ .Get "title" | default "COMPUTEX 展期觀察持續更新" }}</strong>
+    <p>{{ .Get "desc" | default "先進封裝與測試供應鏈文章將持續更新。電子報功能完成後，可第一時間收到後續觀察。" }}</p>
+  </div>
+  <a href="{{ "about/" | relURL }}" class="ai-newsletter-inline__button">關注更新</a>
+</aside>
