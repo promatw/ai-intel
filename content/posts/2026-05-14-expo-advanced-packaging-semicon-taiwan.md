@@ -87,4 +87,4 @@ source_disclosure: "official_exhibition_and_company_sources"
 
 {{< computex-newsletter-inline title="COMPUTEX 展期觀察持續更新" desc="先進封裝與測試供應鏈文章將持續更新。電子報功能完成後，可第一時間收到後續觀察。" >}}
 
-{{< computex-article-cta eyebrow="COMPUTEX 2026 · 延伸閱讀" title="先看測試供應鏈的四條防線" desc="AI 晶片封裝完成後，測試介面、ATE、可靠度服務與 handler 自動化會成為下一道關鍵門檻。" url="/posts/2026-05-14-expo-advanced-testing-semicon-taiwan/" >}}
+{{< computex-article-cta eyebrow="COMPUTEX 2026 · 延伸閱讀" title="先看測試供應鏈的四條防線" desc="AI 晶片封裝完成後，測試介面、ATE、可靠度服務與 handler 自動化會成為下一道關鍵門檻。" url="posts/2026-05-14-expo-advanced-testing-semicon-taiwan/" >}}
